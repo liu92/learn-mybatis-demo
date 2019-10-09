@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--dtd需要导入依赖 包mybatis-generator-core-->
+
+<generatorConfiguration>
+	<!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
+
+	<properties resource="config.properties"/>
+	<!--targetRuntime=MyBatis3Simple: 表示生成简单版的CRUD
+	targetRuntime="MyBatis3 可以生成带动态where标签的-->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<jdbcConnection driverClass="${jdbc.driver}"
+						connectionURL="${jdbc.url}"
+						userId="${jdbc.username}"
+						password="${jdbc.password}">
+		</jdbcConnection>
+
+		<!--类型解析器，下面意思就是 是否强制转换BigDecimals-->
+		<javaTypeResolver >
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- javaModelGenerator：指定javaBean的生成策略
+            targetPackage="test.model"：目标包名
+            targetProject="\MBGTestProject\src"：目标工程
+            下面的
+            生成bean 在com.mybatis.demo.po 这个路径下面
+            targetProject= .\src" 表示当前工程的src下面
+            -->
+		<javaModelGenerator targetPackage="com.mybatis.mbg.po" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- sqlMapGenerator：sql映射生成策略：
+		     targetProject:表示生成在那个工程下
+		     这个是生成 mapper.xml文件的
+		    -->
+		<sqlMapGenerator targetPackage="mybatis"  targetProject=".\src\main\resources\">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+
+		<!-- javaClientGenerator:指定mapper接口所在的位置
+		 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mybatis.mbg.dao"
+							 targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 指定要逆向分析哪些表：根据表要创建javaBean ,
+		domainObjectName:表示生成的类的名字-->
+
+
+		<!--
+		 table 中 使用enableCountByExample 表示不生成Example
+		<table  tableName="employee" domainObjectName="Employee"-->
+				<!--enableCountByExample="false"-->
+				<!--enableUpdateByExample="false"-->
+				<!--enableDeleteByExample="false"-->
+				<!--enableSelectByExample="false"-->
+				<!--selectByExampleQueryId="false" ></table>-->
+
+		<table  tableName="employee" domainObjectName="Employee"
+				 >
+			<!--<property name="useActualColumnNames" value="true"/>-->
+			<!--<generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
+			<!--<columnOverride column="DATE_FIELD" property="startDate" />-->
+			<!--<ignoreColumn column="FRED" />-->
+			<!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+		</table>
+
+		<table  tableName="department" domainObjectName="Department"
+				>
+			<!--<property name="useActualColumnNames" value="true"/>-->
+			<!--<generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
+			<!--<columnOverride column="DATE_FIELD" property="startDate" />-->
+			<!--<ignoreColumn column="FRED" />-->
+			<!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+		</table>
+
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: learn-mybatis
+  banner:
+    charset: utf-8
+  http:
+   encoding:
+     charset: UTF-8
+     enabled: true
+     force: true
+  messages:
+    encoding: UTF-8
+  datasource:
+       url: jdbc:mysql://127.0.0.1:3306/linone?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
+       username: root
+       password: 123
+       driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 打印SQL日志 ,键值对的形式 来配置
+#logging:
+#  level:
+#    org.learn.boot.cache.mapper: debug
+server:
+  port: 8186
+
+

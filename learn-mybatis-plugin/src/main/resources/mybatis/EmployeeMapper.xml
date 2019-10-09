@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.plugin.dao.EmployeeMapper" >
+    <!--自定义javabean的封装规则， type自定义规则的java类型，id是唯一方便引用-->
+    <resultMap id="BaseResultMap" type="com.mybatis.plugin.po.Employee">
+        <id column="id" property="id" javaType="INTEGER"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="d_id" property="dId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, last_name, email, gender, d_id
+    </sql>
+
+
+
+
+
+    <select id="getEmployeeById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee
+        WHERE id=#{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

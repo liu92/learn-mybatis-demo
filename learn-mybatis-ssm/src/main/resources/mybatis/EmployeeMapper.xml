@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.ssm.dao.EmployeeMapper" >
+
+
+
+
+    <!--自定义javabean的封装规则， type自定义规则的java类型，id是唯一方便引用-->
+    <resultMap id="BaseResultMap" type="com.mybatis.ssm.po.Employee">
+        <id column="id" property="id" javaType="INTEGER"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="d_id" property="dId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, last_name, email, gender, d_id
+    </sql>
+
+
+    <select id="getEmployeeById" parameterType="java.lang.Integer" resultMap="BaseResultMap" useCache="true">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee
+        WHERE id=#{id}
+    </select>
+
+    <!--每个增删改标签的：flushCache="true"：（一级二级都会清除）】
+    增删改执行完成后就会清楚缓存；
+	 测试：flushCache="true"：一级缓存就清空了；二级也会被清除；
+	 查询标签：flushCache="false"：
+	 如果flushCache=true;每次查询之后都会清空缓存；缓存是没有被使用的；
+    -->
+    <insert id="insert" parameterType="com.mybatis.ssm.po.Employee" flushCache="true">
+        INSERT INTO
+        employee
+        (id,last_name,email,gender,d_id)
+        VALUES
+        (#{id},#{lastName},#{email},#{gender},#{dId})
+    </insert>
+
+    <update id="update" parameterType="com.mybatis.ssm.po.Employee">
+        UPDATE
+        employee
+        SET  last_name=#{lastName}, email=#{email}, gender=#{gender}, d_id=#{dId}
+        WHERE
+        id=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM
+        employee
+        WHERE
+        id=#{id}
+    </delete>
+
+
+    <select id="getByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee
+        WHERE last_name=#{lastName}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
